@@ -1,15 +1,10 @@
 from curve_processing import *
-
+import drawsvg as draw
 from PIL import Image, ImageDraw, ImageColor
-canvas = (1600, 1200)
-scale = 1
-thumb = canvas[0]/scale, canvas[1]/scale
-im = Image.new('RGBA', canvas, (255, 255, 255, 255))
-draw = ImageDraw.Draw(im)
-draw.line([(10, 10), (1000, 1000)], width=1, fill=(255, 0, 0))
-im.save("im.png")
 
-
+d = draw.Drawing(200, 300, origin='center')
+d.append(draw.Line(10, -50, -80, -50, stroke="red", stroke_width=5))
+d.save_svg("im.svg")
 
 coordinate_block = minecraft_coordinate_real(5, 7)
 
