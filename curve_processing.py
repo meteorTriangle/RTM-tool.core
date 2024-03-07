@@ -15,7 +15,12 @@ class arcCurve:
             self.const = (self.y_*point.z) - (self.x_*point.x)
         def __repr__(self) -> str:
             return "{:.2f}y = {:.2f}x + {:.2f}".format(self.y_, self.x_, self.const)
-        
+        def findX(self, y: int) -> int:
+            x = ((self.y_ * y) - self.const)/self.x_
+            return x
+        def findy(self, x: int) -> int:
+            y = ((self.x_*x) + self.const)/self.y_
+            return y
         class linearray:
             def __init__(self, point: minecraft_coordinate_real, deg: float) -> None:
                 self.sX = point.x
