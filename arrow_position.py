@@ -13,7 +13,8 @@ class minecraft_coordinate_real:
         return new
     def __repr__(self) -> str:
         return "X: {:.2f}  Z: {:.2f}".format(self.x, self.z)
-    
+    def tuple(self, inverse = 1) -> tuple:
+        return (self.x, self.z* inverse)
 
 arrowDIR = {
     "NORTH"     : int(0),
@@ -43,6 +44,8 @@ class arrow:
             return self.__railDeg
         def __call__(self) -> Any:
             return self.__dict__
+        def tuple(self) -> tuple:
+            return (self.__x, self.__z)
         
 
     def __init__(self, block_coordinate:minecraft_coordinate_real, DIR:int, rail_dir:float) -> None:
