@@ -1,5 +1,7 @@
 import drawsvg as draw
 import linearCore.linear as linear
+import arrow_position as arrow
+import math
 
 class canvas(draw.Drawing):
     def setcenterscale(self, x, y, scale):
@@ -40,6 +42,19 @@ class canvas(draw.Drawing):
             pass
         else:
             self.setcenterscale(0, 0, 1)
-    def drawpoint(self, point: tuple[int, int], color= "black"):
-        point_ = [(point[0]  - self.offsetX)* self.offsetScale, -(point[1]  - self.offsetY)* self.offsetScale]
+    def drawpoint(self, point: linear.point, color= "black"):
+        point_ = [(point.x  - self.offsetX)* self.offsetScale, -(point.y  - self.offsetY)* self.offsetScale]
         self.append(draw.Circle(*point_, 5*self.offsetScale, fill=color))
+
+    def drawArrow(self, Arrow_: arrow.arrow, color):
+        point = Arrow_.processing.tuple()
+        deg = Arrow_.processing.railDeg()
+        deg1 = math.radians((deg+145) % 360)
+        deg2 = math.radians((deg-145) % 360)
+        point1 = (point[0]+math.cos(deg1)*15, point[1]+math.sin(deg1)*15)
+        point2 = (point[0]+math.cos(deg2)*15, point[1]+math.sin(deg2)*15)
+        point = ((point[0]  - self.offsetX)* self.offsetScale, -(point[1]  - self.offsetY)* self.offsetScale)
+        point1 = ((point1[0]  - self.offsetX)* self.offsetScale, -(point1[1]  - self.offsetY)* self.offsetScale)
+        point2 = ((point2[0]  - self.offsetX)* self.offsetScale, -(point2[1]  - self.offsetY)* self.offsetScale)
+        self.append(draw.Line(*point, *point1, stroke=color, stroke_width=2))
+        self.append(draw.Line(*point, *point2, stroke=color, stroke_width=2))

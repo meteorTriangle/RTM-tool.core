@@ -49,3 +49,42 @@ class linearFunc(linearFunc):
             Yr = round(deltaY / delta, 7)
             return (Xr, Yr)
 
+class point:
+    def __init__(self, x, y):
+        self.x = float(x)
+        self.y = float(y)
+    def __add__(self, o):
+        if type(o) == vector:
+            return point(self.x + o.x, self.y + o.y)
+    def __sub__(self, o):
+        if type(o) == vector:
+            return point(self.x - o.x, self.y - o.y)
+        if type(o) == point:
+            return vector(self.x - o.x, self.y - o.y)
+        pass
+    def __repr__(self) -> str:
+        return "({:n}, {:n})".format(self.x, self.y)
+
+
+class vector:
+    def __init__(self, x, y):
+        self.x = float(x)
+        self.y = float(y)
+    def __abs__(self)->float:
+        return math.sqrt(self.x**2 + self.y**2)
+    def __neg__(self):
+        return vector(-self.x, -self.y)
+    def __floordiv__(self, o):
+        return self.div(o)
+    def __truediv__(self, o):
+        return self.div(o)
+    def div(self, o):
+        if(type(o) == float):
+            return vector(self.x / o, self.y / o)
+    def unit(self):
+        return  (self / abs(self))
+    def __mul__(self, o):
+        if type(o) == float:
+            return vector(self.x * o, self.y * o)
+    def __repr__(self) -> str:
+        return "({:n}, {:n})".format(self.x, self.y)
