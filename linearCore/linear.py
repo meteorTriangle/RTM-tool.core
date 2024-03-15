@@ -88,3 +88,11 @@ class vector:
             return vector(self.x * o, self.y * o)
     def __repr__(self) -> str:
         return "({:n}, {:n})".format(self.x, self.y)
+    def arg(self):
+        '''
+        if self.y <= 0:
+            a = 0
+        else:
+            a = 0
+        '''
+        return math.degrees(math.atan2(self.y, self.x)) 
