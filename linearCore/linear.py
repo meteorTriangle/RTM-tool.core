@@ -56,6 +56,8 @@ class point:
     def __add__(self, o):
         if type(o) == vector:
             return point(self.x + o.x, self.y + o.y)
+        if type(o) == point:
+            return point(self.x + o.x, self.y + o.y)
     def __sub__(self, o):
         if type(o) == vector:
             return point(self.x - o.x, self.y - o.y)
@@ -64,6 +66,9 @@ class point:
         pass
     def __repr__(self) -> str:
         return "({:n}, {:n})".format(self.x, self.y)
+    def __mul__(self, o):
+        if type(o) == float:
+            return point(self.x * o, self.y * o)
 
 
 class vector:
@@ -88,3 +93,9 @@ class vector:
             return vector(self.x * o, self.y * o)
     def __repr__(self) -> str:
         return "({:n}, {:n})".format(self.x, self.y)
+    def degree(self) -> float:
+        return math.degrees(math.atan2(self.y, self.x))
+
+
+def degree2Minecraft(n:float)-> float:
+    return (-(n+90))%360
