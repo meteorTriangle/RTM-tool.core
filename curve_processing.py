@@ -44,7 +44,12 @@ class arcCurve:
         self.arc_center = linear.point(*(self.line1p & self.line2p))
         self.maxRadius = c11 / math.tan(math.radians(self.arcAngle / 2))
         self.stAngle_vector = self.newArrow1p - self.arc_center
-        self.stAngle = a1tC.degree()
+        self.stAngle = self.stAngle_vector.degree()
         self.endAngle_vector = self.newArrow2p - self.arc_center
-        self.endAngle = a2tC.degree()
-        
+        self.endAngle = self.endAngle_vector.degree()
+        self.arc_r = abs(self.endAngle_vector)
+        self.X1 = self.newArrow1p
+        self.X4 = self.newArrow2p
+        self.Bezier_L = 4*math.tan(math.radians(self.arcAngle)/4)/3
+        self.X2 = self.X1+a1tC.unit()*self.Bezier_L*self.arc_r
+        self.X3 = self.X4+a2tC.unit()*self.Bezier_L*self.arc_r

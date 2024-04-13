@@ -72,4 +72,8 @@ class canvas(draw.Drawing):
             return D0+D1+D2+D3
         for i in range(1000):
             self.drawpoint(Bezier(i/1000, P0, P1, P2, P3), size=1.5)
+    
+    def drawArc(self, point: linear.point, r, StAngle, EndAngle, fill, stroke):
+        point_ = [(point.x  - self.offsetX)* self.offsetScale, -(point.y  - self.offsetY)* self.offsetScale]
+        self.append(draw.Arc(*point_, r=r*self.offsetScale, start_deg=-StAngle , end_deg=-EndAngle, fill=fill, stroke = stroke, cw=True))
         
