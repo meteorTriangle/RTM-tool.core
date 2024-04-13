@@ -43,7 +43,8 @@ class arcCurve:
                              self.arrow2.processing.railDeg()+90)
         self.arc_center = linear.point(*(self.line1p & self.line2p))
         self.maxRadius = c11 / math.tan(math.radians(self.arcAngle / 2))
-        self.stAngle = (self.newArrow1p - self.arc_center).arg()
-        self.endAngle = (self.newArrow2p - self.arc_center).arg()
-        
+        self.stAngle_vector = self.newArrow1p - self.arc_center
+        self.stAngle = a1tC.degree()
+        self.endAngle_vector = self.newArrow2p - self.arc_center
+        self.endAngle = a2tC.degree()
         

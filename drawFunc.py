@@ -42,9 +42,9 @@ class canvas(draw.Drawing):
             pass
         else:
             self.setcenterscale(0, 0, 1)
-    def drawpoint(self, point: linear.point, color= "black"):
+    def drawpoint(self, point: linear.point, color= "black", size = 5):
         point_ = [(point.x  - self.offsetX)* self.offsetScale, -(point.y  - self.offsetY)* self.offsetScale]
-        self.append(draw.Circle(*point_, 5*self.offsetScale, fill=color))
+        self.append(draw.Circle(*point_, size*self.offsetScale, fill=color))
 
     def drawArrow(self, Arrow_: arrow.arrow, color):
         point = Arrow_.processing.tuple()
@@ -58,3 +58,18 @@ class canvas(draw.Drawing):
         point2 = ((point2[0]  - self.offsetX)* self.offsetScale, -(point2[1]  - self.offsetY)* self.offsetScale)
         self.append(draw.Line(*point, *point1, stroke=color, stroke_width=2))
         self.append(draw.Line(*point, *point2, stroke=color, stroke_width=2))
+
+    def drawBezier(self, P0, P1, P2, P3):
+        def Bezier(t, P0, P1, P2, P3):
+            X0:float = 1 * ((1-t) ** 3) * (t**0)
+            X1:float = 3 * ((1-t) ** 2) * (t**1)
+            X2:float = 3 * ((1-t) ** 1) * (t**2)
+            X3:float = 1 * ((1-t) ** 0) * (t**3)
+            D0 = P0 * X0
+            D1 = P1 * X1
+            D2 = P2 * X2
+            D3 = P3 * X3
+            return D0+D1+D2+D3
+        for i in range(1000):
+            self.drawpoint(Bezier(i/1000, P0, P1, P2, P3), size=1.5)
+        
