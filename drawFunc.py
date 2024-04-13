@@ -1,5 +1,6 @@
 import drawsvg as draw
 import linearCore.linear as linear
+import linearCore.Bezier as Bezier
 import arrow_position as arrow
 import math
 
@@ -60,18 +61,8 @@ class canvas(draw.Drawing):
         self.append(draw.Line(*point, *point2, stroke=color, stroke_width=2))
 
     def drawBezier(self, P0, P1, P2, P3):
-        def Bezier(t, P0, P1, P2, P3):
-            X0:float = 1 * ((1-t) ** 3) * (t**0)
-            X1:float = 3 * ((1-t) ** 2) * (t**1)
-            X2:float = 3 * ((1-t) ** 1) * (t**2)
-            X3:float = 1 * ((1-t) ** 0) * (t**3)
-            D0 = P0 * X0
-            D1 = P1 * X1
-            D2 = P2 * X2
-            D3 = P3 * X3
-            return D0+D1+D2+D3
         for i in range(1000):
-            self.drawpoint(Bezier(i/1000, P0, P1, P2, P3), size=1.5)
+            self.drawpoint(Bezier.Bezier(i/1000, P0, P1, P2, P3), size=1.5)
     
     def drawArc(self, point: linear.point, r, StAngle, EndAngle, fill, stroke):
         point_ = [(point.x  - self.offsetX)* self.offsetScale, -(point.y  - self.offsetY)* self.offsetScale]

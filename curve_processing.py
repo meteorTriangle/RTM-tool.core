@@ -10,10 +10,9 @@ class arcCurve:
             self.sX = point.x
             self.sY = point.z
             self.deg = deg % 360
-    def __init__(self, arrow1: arrow, arrow2: arrow, radius: int):
+    def __init__(self, arrow1: arrow, arrow2: arrow):
         self.arrow1 = arrow1
         self.arrow2 = arrow2
-        self.radius = radius
         self.a1point = linear.point(self.arrow1.processing.x(), self.arrow1.processing.z())
         self.a2point = linear.point(self.arrow2.processing.x(), self.arrow2.processing.z())
         self.line1 = linear.linearFunc()
@@ -47,9 +46,11 @@ class arcCurve:
         self.stAngle = self.stAngle_vector.degree()
         self.endAngle_vector = self.newArrow2p - self.arc_center
         self.endAngle = self.endAngle_vector.degree()
-        self.arc_r = abs(self.endAngle_vector)
         self.X1 = self.newArrow1p
         self.X4 = self.newArrow2p
         self.Bezier_L = 4*math.tan(math.radians(self.arcAngle)/4)/3
-        self.X2 = self.X1+a1tC.unit()*self.Bezier_L*self.arc_r
-        self.X3 = self.X4+a2tC.unit()*self.Bezier_L*self.arc_r
+        self.X2 = self.X1+a1tC.unit()*self.Bezier_L*self.maxRadius
+        self.X3 = self.X4+a2tC.unit()*self.Bezier_L*self.maxRadius
+
+    def Bezier(self)-> tuple:
+        return (self.X1, self.X2, self.X3, self.X4)

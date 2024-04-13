@@ -3,47 +3,40 @@ from PIL import Image, ImageDraw, ImageColor
 import drawFunc as dF
 
 
-d = dF.canvas(600, 600, origin='center')
-d.setcenterscale(0, 0, 1)
 
-coordinate_block1 = minecraft_coordinate_real(120, -40)
-coordinate_block2 = minecraft_coordinate_real(12, 10)
+coordinate_block1 = minecraft_coordinate_real(120, -120)
+coordinate_block2 = minecraft_coordinate_real(-100, 40)
 
 dirr = arrowDIR["SOUTHWEST"]
 
 cc = arrow(coordinate_block1, dirr, -90)
-cc2 = arrow(coordinate_block2, dirr, 135)
+cc2 = arrow(coordinate_block2, dirr, 160)
 
-arc1 = arcCurve(cc, cc2, 50)
+arc1 = arcCurve(cc, cc2)
 
 
 print(cc)
 print(cc2)
 print(arc1.line1)
 print(arc1.line2)
-print(arc1.crossPoint)
-print(arc1.arcAngle)
-print(arc1.stAngle)
-print(arc1.endAngle)
-print(arc1.arc_r)
+print(arc1.maxRadius)
 print(arc1.Bezier_L)
 
-X0 = linear.point(150, 150)
-X1 = linear.point(-15.69, 150)
-X2 = linear.point(-150, 15.69)
-X3 = linear.point(-150, -150)
+tp = dF.Bezier.Bezier(0.5, *arc1.Bezier())
 
-d.drawlinearFunc(arc1.line1, "red")
-d.drawlinearFunc(arc1.line2, "red")
+d = dF.canvas(600, 600, origin='center')
+d.setcenterscale(tp.x, tp.y, 1)
+d.drawlinearFunc(arc1.line1, "green")
+d.drawlinearFunc(arc1.line2, "green")
 d.drawlinearFunc(arc1.line1p, "gray")
 d.drawlinearFunc(arc1.line2p, "gray")
-d.drawpoint(arc1.newArrow1p, color="yellow")
-d.drawpoint(arc1.crossPoint, color="red")
-d.drawpoint(arc1.arc_center, color="red")
-d.drawpoint(arc1.newArrow2p, color="yellow")
+#d.drawpoint(arc1.newArrow1p, color="yellow")
+#d.drawpoint(arc1.crossPoint, color="red")
+#d.drawpoint(arc1.arc_center, color="red")
+#d.drawpoint(arc1.newArrow2p, color="yellow")
 d.drawArrow(cc, color="black")
 d.drawArrow(cc2, color="black")
-d.drawBezier(arc1.X1, arc1.X2, arc1.X3, arc1.X4)
-d.drawArc(arc1.arc_center, arc1.arc_r, arc1.endAngle, arc1.stAngle, fill="None", stroke="red")
+d.drawBezier(*arc1.Bezier())
+#d.drawArc(arc1.arc_center, arc1.maxRadius, arc1.endAngle, arc1.stAngle, fill="None", stroke="red")
 d.save_svg("im.svg")
 
